@@ -1,14 +1,17 @@
 ---
 
+# Tasks to be run on all Ubuntu/Debian servers regardless of role
+
 - hosts: all
   become: true
-  tasks:
+  pre_tasks:
 
   - name: install updates
     apt:
       upgrade: dist
       update_cache: yes
-    when: ansible_distribution == "Ubuntu"
+
+# Tasks to be run on all Ubuntu/Debian servers in the web_servers role
 
 - hosts: web_servers
   become: true
@@ -20,4 +23,24 @@
         - apache2
         - libapache2-mod-php
       state: latest
-    when: ansible_distribution == "Ubuntu"
+
+# Tasks to be run on all ubuntu/Debian servers in the db_servers role
+
+- hosts: db_servers
+  become: true
+  tasks:
+    - name:  Install mariadb package
+      apt:
+        name: mariadb-server
+        state: latest
+
+# Tasks to be run on all ubuntu/debian servers in the file_servers role
+
+- hosts: file_servers
+  become: true
+  tasks:
+    - name: Install samba package
+      apt:
+        name: samba
+        state: latest
+      

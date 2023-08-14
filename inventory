@@ -1,3 +1,9 @@
-ubsrv01 apache_package=apache2 php_package=libapache2-mod-php
-ubsrv02 apache_package=apache2 php_package=libapache2-mod-php
-ubsrv03 apache_package=apache2 php_package=libapache2-mod-php
+[web_servers]
+ubsrv01 
+
+[db_servers]
+ubsrv02 
+
+[file_servers]
+ubsrv03 
+
