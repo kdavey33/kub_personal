@@ -1,3 +1,3 @@
-ubsrv01
-ubsrv02
-ubsrv03
+ubsrv01 apache_package=apache2 php_package=libapache2-mod-php
+ubsrv02 apache_package=apache2 php_package=libapache2-mod-php
+ubsrv03 apache_package=apache2 php_package=libapache2-mod-php
