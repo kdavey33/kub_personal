@@ -1,0 +1,12 @@
+---
+# This playbook will run a BORGE CREATE archive against all nodes in the cluster.
+
+- hosts: node0
+  become: true
+  tasks:
+    - name: Run BORG CREATE job
+      ansible.builtin.shell: export BORG_REPO=borg@192.168.1.55:/mnt/borg
+      ansible.builtin.shell: export BORG_PASSPHRASE=tsm4supt
+      ansible.builtin.shell: borgbackup create --show-rc --exclude /proc --exclude /run --exclude /sys ::'(hostname)-(now)' /
+
+
