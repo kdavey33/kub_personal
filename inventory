@@ -7,3 +7,7 @@ ubsrv02
 [file_servers]
 ubsrv03 
 
+[all]
+ubsrv01
+ubsrv02
+ubsrv03
