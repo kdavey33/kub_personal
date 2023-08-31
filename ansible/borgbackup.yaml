@@ -4,9 +4,15 @@
 - hosts: node0
   become: true
   tasks:
-    - name: Run BORG CREATE job
-      ansible.builtin.shell: export BORG_REPO=borg@192.168.1.55:/mnt/borg
-      ansible.builtin.shell: export BORG_PASSPHRASE=tsm4supt
-      ansible.builtin.shell: borgbackup create --show-rc --exclude /proc --exclude /run --exclude /sys ::'(hostname)-(now)' /
+    - name: Run export job
+      ansible.builtin.set_fact: 
+        borg_passphrase: "tsm4supt"
+        random_number: "{{ 1000 | random }}"
+ 
+    - name:  Run the Borg Create Job
+      ansible.builtin.shell: |
+        borgbackup create --show-rc --list --stats --exclude /proc --exclude /run --exclude /sys borg@192.168.1.55:/mnt/borg::{{ random_number }} /
+      environment:
+        BORG_PASSPHRASE: "{{ borg_passphrase }}"
 
 
