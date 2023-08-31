@@ -1,17 +1,19 @@
 ---
 # This playbook will run a BORGE CREATE archive against all nodes in the cluster.
 
-- hosts: node0
+- hosts: all
   become: true
+  serial: 1  # Run tasks one node at a time
   tasks:
     - name: Run export job
-      ansible.builtin.set_fact: 
+      ansible.builtin.set_fact:
         borg_passphrase: "tsm4supt"
         random_number: "{{ 1000 | random }}"
- 
+
     - name:  Run the Borg Create Job
+      ignore_errors: yes
       ansible.builtin.shell: |
-        borgbackup create --show-rc --list --stats --exclude /proc --exclude /run --exclude /sys borg@192.168.1.55:/mnt/borg::{{ random_number }} /
+        borgbackup create --show-rc  --stats --exclude /proc --exclude /run --exclude /sys borg@192.168.1.55:/mnt/borg::{{ ansible_hostname }}-{{ random_number }} /
       environment:
         BORG_PASSPHRASE: "{{ borg_passphrase }}"
 
