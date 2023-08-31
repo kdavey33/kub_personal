@@ -1,5 +1,5 @@
 ---
-# This playbook will run a BORGE CREATE archive against all nodes in the cluster.
+# This playbook will run a BORG CREATE archive against all nodes in the cluster.
 
 - hosts: all
   become: true
@@ -7,11 +7,11 @@
   tasks:
     - name: Run export job
       ansible.builtin.set_fact:
-        borg_passphrase: "tsm4supt"
-        random_number: "{{ 1000 | random }}"
+        borg_passphrase: "tsm4supt" #need to find a way to store this not in the clear
+        random_number: "{{ 1000 | random }}"  # Should work for now but not an unrealistic chance for a collsition
 
     - name:  Run the Borg Create Job
-      ignore_errors: yes
+      ignore_errors: yes  # We do this due to how BORG reports skipped files
       ansible.builtin.shell: |
         borgbackup create --show-rc  --stats --exclude /proc --exclude /run --exclude /sys borg@192.168.1.55:/mnt/borg::{{ ansible_hostname }}-{{ random_number }} /
       environment:
