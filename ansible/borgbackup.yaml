@@ -5,9 +5,13 @@
   become: true
   serial: 1  # Run tasks one node at a time
   tasks:
+
+    - name: Bring in secrets
+      include_vars: var_secret.yaml
+
     - name: Run export job
       ansible.builtin.set_fact:
-        borg_passphrase: "tsm4supt" #need to find a way to store this not in the clear
+        borg_passphrase: "{{ borgrepopw }}" #need to find a way to store this not in the clear
         random_number: "{{ 1000 | random }}"  # Should work for now but not an unrealistic chance for a collsition
 
     - name:  Run the Borg Create Job
