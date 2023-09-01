@@ -7,11 +7,11 @@
   tasks:
 
     - name: Bring in secrets
-      include_vars: var_secret.yaml
+      include_vars: var_secret.yaml # Decrypt and process vars from the project var_secret.yaml
 
     - name: Run export job
       ansible.builtin.set_fact:
-        borg_passphrase: "{{ borgrepopw }}" #need to find a way to store this not in the clear
+        borg_passphrase: "{{ borgrepopw }}" # Setting in shell env var to the secret pulled value pulled in above
         random_number: "{{ 1000 | random }}"  # Should work for now but not an unrealistic chance for a collsition
 
     - name:  Run the Borg Create Job
