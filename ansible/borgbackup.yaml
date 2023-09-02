@@ -20,5 +20,3 @@
         borgbackup create --show-rc  --stats --exclude /proc --exclude /run --exclude /sys borg@192.168.1.55:/mnt/borg::{{ ansible_hostname }}-{{ random_number }} /
       environment:
         BORG_PASSPHRASE: "{{ borg_passphrase }}"
-
-
