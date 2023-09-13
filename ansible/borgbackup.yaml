@@ -23,6 +23,6 @@
     - name: prune old archives
       ignore_errors: yes
       ansible.builtin.shell:  |
-        borgbackup prune --keep-daily 7 -P {{ ansible_hostname }} borg@192.168.1.55:/mnt/borg
+        borgbackup prune --keep-daily 7 --keep-weekly 4 --keep-monthly 3 -P {{ ansible_hostname }} borg@192.168.1.55:/mnt/borg
       environment:
         BORG_PASSPHRASE:  "{{ borg_passphrase }}"
