@@ -19,3 +19,10 @@
         borgbackup create --show-rc  --stats --exclude /proc --exclude /run --exclude /sys borg@192.168.1.55:/mnt/borg::{{ ansible_hostname }}-{{ random_number }} /
       environment:
         BORG_PASSPHRASE: "{{ borg_passphrase }}"
+    
+    - name: prune old archives
+      ignore_errors: yes
+      ansible.builtin.shell:  |
+        borgbackup prune --keep-daily 7 -P {{ ansible_hostname }} borg@192.168.1.55:/mnt/borg
+      environment:
+        BORG_PASSPHRASE:  "{{ borg_passphrase }}"
