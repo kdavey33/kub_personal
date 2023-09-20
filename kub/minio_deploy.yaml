@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      containers:
+        - name: minio
+          image: minio/minio
+          args:
+            - server
+            - /data
+          env:
+            - name: MINIO_ACCESS_KEY
+              value: kdavey
+            - name: MINIO_SECRET_KEY
+              value: sUs143533!?tsm4supt
+          ports:
+            - containerPort: 9000
+          volumeMounts:
+            - name: minio-data
+              mountPath: /data
+                #      volumes:
+                #       - name: minio-data
+                #          persistentVolumeClaim:
+                #            claimName: minio-pvc 
+                #
+      volumes:
+        - name: minio-data
+          nfs:
+            server: 192.168.1.71
+            path: /mnt/tank/nfs
+            readOnly: false
