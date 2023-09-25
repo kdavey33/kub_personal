@@ -22,7 +22,7 @@
 - hosts: all
   become: true
   serial: 1  # Run tasks one node at a time
-  vars: 
+  vars:
     borg_passphrase: "{{ borgrepopw }}"
     random_number: "{{ 1000 | random }}"
 
@@ -37,7 +37,7 @@
         borgbackup create --show-rc  --stats --exclude /proc --exclude /run --exclude /sys borg@192.168.1.55:/mnt/borg::{{ ansible_hostname }}-{{ random_number }} /
       environment:
         BORG_PASSPHRASE: "{{ borg_passphrase }}"
-    
+
     - name: prune old archives
       ignore_errors: yes
       ansible.builtin.shell:  |
