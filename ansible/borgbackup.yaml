@@ -5,7 +5,7 @@
   become: true
 
   tasks:
-  
+
     - name: activate borg repo lambda_event
       community.general.lvol:
       vg: borgvg
@@ -14,7 +14,7 @@
 
     - name: Mount the borg repo lv
       ansible.builtin.shell: |
-        mount /dev/mapper/borgvg-borglv01 /mnt/borg 
+        mount /dev/mapper/borgvg-borglv01 /mnt/borg
 
 ---
 # This playbook will run a BORG CREATE archive against all nodes in the cluster.
@@ -56,11 +56,9 @@
     - name: Umount the borg repo lv
       ansible.builtin.shell: |
         umount /mnt/borg
-  
-    - name: deactivate borg repo 
+
+    - name: deactivate borg repo
       community.general.lvol:
       vg: borgvg
       lv: borglv01
-      active: False 
-
-        
+      active: False
