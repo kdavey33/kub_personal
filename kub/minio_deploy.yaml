@@ -19,18 +19,18 @@ spec:
             - server
             - /data
           env:
-            - name: MINIO_ACCESS_KEY
+            - name: MINIO_ROOT_USER
               value: kdavey
-            - name: MINIO_SECRET_KEY
+            - name: MINIO_ROOT_PASSWORD
               value: sUs143533!?tsm4supt
           ports:
             - containerPort: 9000
           volumeMounts:
             - name: minio-data
               mountPath: /data
-                volumes:
-                - name: minio-data
-                persistentVolumeClaim:
+          volumes:
+            - name: minio-data
+              persistentVolumeClaim: 
                 claimName: minio-pvc 
                 
    #   volumes:
