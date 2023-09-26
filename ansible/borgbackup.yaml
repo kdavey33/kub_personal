@@ -16,7 +16,7 @@
       ansible.builtin.shell: |
         mount /dev/mapper/borgvg-borglv01 /mnt/borg
 
----
+
 # This playbook will run a BORG CREATE archive against all nodes in the cluster.
 
 - hosts: all
@@ -45,7 +45,7 @@
       environment:
         BORG_PASSPHRASE:  "{{ borg_passphrase }}"
 
----
+
 # Activate and umount borg repo
 
 - hosts: borg
