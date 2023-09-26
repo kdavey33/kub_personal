@@ -6,6 +6,12 @@
 
   tasks:
 
+    - name:  Check status of filesystem
+      stat:
+        path: /mnt/borg
+      register: filesystem_stat
+      ignore_errors: yes
+
     - name: activate borg repo logical volume
       community.general.lvol:
         vg: borgvg
@@ -15,11 +21,11 @@
     - name: Mount the borg repo lv
       ansible.builtin.shell: |
         mount /dev/mapper/borgvg-borglv01 /mnt/borg
-
+      when: filesystem_stat.stat.mode =='0'
 
 # This playbook will run a BORG CREATE archive against all nodes in the cluster.
 
-- hosts: all
+- hosts: backup
   become: true
   serial: 1  # Run tasks one node at a time
   vars:
