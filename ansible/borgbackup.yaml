@@ -6,11 +6,11 @@
 
   tasks:
 
-    - name: activate borg repo lambda_event
+    - name: activate borg repo logical volume
       community.general.lvol:
-      vg: borgvg
-      lv: borglv01
-      active: true
+        vg: borgvg
+        lv: borglv01
+        active: true
 
     - name: Mount the borg repo lv
       ansible.builtin.shell: |
@@ -59,6 +59,6 @@
 
     - name: deactivate borg repo
       community.general.lvol:
-      vg: borgvg
-      lv: borglv01
-      active: False
+        vg: borgvg
+        lv: borglv01
+        active: False
