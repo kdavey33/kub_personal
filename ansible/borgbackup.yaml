@@ -1,28 +1,4 @@
 ---
-# Activate and mount the Borg Repo
-
-- hosts: borg
-  become: true
-
-  tasks:
-
-    - name:  Check status of filesystem
-      stat:
-        path: /mnt/borg
-      register: filesystem_stat
-      ignore_errors: yes
-
-    - name: activate borg repo logical volume
-      community.general.lvol:
-        vg: borgvg
-        lv: borglv01
-        active: true
-
-    - name: Mount the borg repo lv
-      ansible.builtin.shell: |
-        mount /dev/mapper/borgvg-borglv01 /mnt/borg
-      when: filesystem_stat.stat.mode =='0'
-
 # This playbook will run a BORG CREATE archive against all nodes in the cluster.
 
 - hosts: backup
@@ -52,19 +28,3 @@
         BORG_PASSPHRASE:  "{{ borg_passphrase }}"
 
 
-# Activate and umount borg repo
-
-- hosts: borg
-  become: true
-
-  tasks:
-
-    - name: Umount the borg repo lv
-      ansible.builtin.shell: |
-        umount /mnt/borg
-
-    - name: deactivate borg repo
-      community.general.lvol:
-        vg: borgvg
-        lv: borglv01
-        active: False
