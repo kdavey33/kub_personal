@@ -1,0 +1,26 @@
+---
+
+- hosts: docker_host
+  become: true
+  tasks:
+
+  - name: install the docker.io
+    package:
+      name: 
+        - docker.io
+      state: latest
+      update_cache: yes
+
+- name: Check if docker server is running
+  tasks:
+  
+    - name: Check the status of the service
+      systemd:
+        name: docker.io
+        state: started
+      register: service_status
+
+    - name: Display the service status
+      debug:
+        var: service_status
+        
