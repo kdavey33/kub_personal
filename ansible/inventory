@@ -6,3 +6,6 @@ cf
 
 [borg]
 192.168.1.55
+
+[docker]
+prod1

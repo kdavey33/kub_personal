@@ -1,26 +1,36 @@
 ---
 
-- hosts: docker_host
+- hosts: docker
   become: true
   tasks:
 
   - name: install the docker.io
     package:
-      name: 
+      name:
         - docker.io
       state: latest
       update_cache: yes
 
-- name: Check if docker server is running
-  tasks:
-  
-    - name: Check the status of the service
-      systemd:
-        name: docker.io
-        state: started
-      register: service_status
 
-    - name: Display the service status
-      debug:
-        var: service_status
-        
+  - name: Check the status of the service
+    systemd:
+      name: docker
+      state: started
+
+  - name: Create Portainer Volume
+    docker_volume:
+      name: Portainer_vol
+      state: present
+
+  - name: Install Portainer
+    docker_container:
+      detach: true
+      image: portainer/portainer-ce:latest
+      published_ports:
+        - "8000:8000"
+        - "9446:9446"
+      name: Portainer
+      volumes:
+        -  "/var/run/docker.sock:/var/run/docker.sock"
+        -  "Portainer_vol:/data"
+
