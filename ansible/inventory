@@ -3,9 +3,10 @@ node0
 node1
 node2
 cf
+postgres
 
 [borg]
 192.168.1.55
 
 [docker]
-prod2
+postgres
