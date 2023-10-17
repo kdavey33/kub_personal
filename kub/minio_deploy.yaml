@@ -36,9 +36,4 @@ spec:
    #         server: 192.168.1.71
    #         path: /mnt/tank/nfs
    #         readOnly: false
-=======
-      volumes:
-      - name: minio-data
-        persistentVolumeClaim:
-          claimName: minio-pvc
->>>>>>> refs/remotes/origin/testing
+
