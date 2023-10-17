@@ -26,11 +26,10 @@ spec:
           volumeMounts:
             - name: minio-data
               mountPath: /data
-<<<<<<< HEAD
-          volumes:
-            - name: minio-data
-              persistentVolumeClaim:
-                claimName: minio-pvc
+      volumes:
+      - name: minio-data
+        persistentVolumeClaim:
+          claimName: minio-pvc
    #   volumes:
    #     - name: minio-data
    #       nfs:
