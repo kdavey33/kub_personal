@@ -18,16 +18,15 @@ spec:
           args:
             - server
             - /data
-          env:
-            - name: MINIO_ROOT_USER
-              value: kdavey
-            - name: MINIO_ROOT_PASSWORD
-              value: sUs143533!?tsm4supt
+          envFrom:
+            - secretRef:
+                name: minio-secret
           ports:
             - containerPort: 9000
           volumeMounts:
             - name: minio-data
               mountPath: /data
+<<<<<<< HEAD
           volumes:
             - name: minio-data
               persistentVolumeClaim:
@@ -38,3 +37,9 @@ spec:
    #         server: 192.168.1.71
    #         path: /mnt/tank/nfs
    #         readOnly: false
+=======
+      volumes:
+      - name: minio-data
+        persistentVolumeClaim:
+          claimName: minio-pvc
+>>>>>>> refs/remotes/origin/testing
