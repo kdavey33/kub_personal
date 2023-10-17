@@ -27,6 +27,7 @@
       detach: true
       image: portainer/portainer-ce:latest
       published_ports:
+        - "9000:9000"
         - "8000:8000"
         - "9446:9446"
       name: Portainer

@@ -3,7 +3,7 @@ node0
 node1
 node2
 cf
-postgres
+#postgres
 
 [borg]
 192.168.1.55

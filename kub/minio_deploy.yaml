@@ -30,3 +30,10 @@ spec:
       - name: minio-data
         persistentVolumeClaim:
           claimName: minio-pvc
+   #   volumes:
+   #     - name: minio-data
+   #       nfs:
+   #         server: 192.168.1.71
+   #         path: /mnt/tank/nfs
+   #         readOnly: false
+
