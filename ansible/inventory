@@ -1,12 +1,7 @@
 [backup]
-node0
-node1
-node2
+rke-master
+rke-worker1
+rke-worker2
+rke-worker3
 cf
-#postgres
 
-[borg]
-192.168.1.55
-
-[docker]
-postgres
