@@ -1,7 +1,2 @@
-[backup]
-rke-master
-rke-worker1
-rke-worker2
-rke-worker3
+docker
 cf
-
