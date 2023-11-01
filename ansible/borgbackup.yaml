@@ -5,7 +5,7 @@
   become: true
   serial: 1  # Run tasks one node at a time
   vars:
-    borg_passphrase: "{{ borgrepopw }}"
+#    borg_passphrase: "{{ borgrepopw }}"
     random_number: "{{ 1000 | random }}"
 
   tasks:
@@ -16,9 +16,9 @@
     - name:  Run the Borg Create Job
       ignore_errors: yes  # We do this due to how BORG reports skipped files
       ansible.builtin.shell: |
-        borgbackup create --show-rc  --stats --exclude /proc --exclude /run --exclude /sys borg@192.168.1.55:/mnt/borg::{{ ansible_hostname }}-{{ random_number }} /
+        borgbackup create --show-rc  --stats --exclude /proc --exclude /run --exclude /sys borg@192.168.1.55:/home/borg/repo::{{ ansible_hostname }}-{{ random_number }} /
       environment:
-        BORG_PASSPHRASE: "{{ borg_passphrase }}"
+#        BORG_PASSPHRASE: "{{ borg_passphrase }}"
       register: results1
 
     - debug:
@@ -27,9 +27,10 @@
     - name: prune old archives
       ignore_errors: yes
       ansible.builtin.shell:  |
-        borgbackup prune --keep-daily 7 --keep-weekly 4 --keep-monthly 3 -P {{ ansible_hostname }} borg@192.168.1.55:/mnt/borg
+        borgbackup prune --keep-daily 7 --keep-weekly 4 --keep-monthly 3 --stats --list -P {{ ansible_hostname }} borg@192.168.1.55:/home/borg/repo
       environment:
-        BORG_PASSPHRASE:  "{{ borg_passphrase }}"
+#        BORG_PASSPHRASE:  "{{ borg_passphrase }}"
+
       register: results2
 
     - debug:
