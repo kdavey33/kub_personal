@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: apps/v1
 kind: PersistentVolumeClaim
 metadata:
   name: minio-pvc
@@ -10,4 +10,8 @@ spec:
   resources:
     requests:
       storage: 10Gi
+<<<<<<< HEAD
 
+=======
+    storageClassN:ame: longhorn
+>>>>>>> refs/remotes/origin/main

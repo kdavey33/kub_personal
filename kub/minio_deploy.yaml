@@ -25,17 +25,18 @@ spec:
                 name: minio-secret
           ports:
             - containerPort: 9000
+            - containerPort: 9001  
           volumeMounts:
             - name: minio-data
               mountPath: /data
-      volumes:
+    volumes:
       - name: minio-data
         persistentVolumeClaim:
-          claimName: minio-pvc
-   #   volumes:
-   #     - name: minio-data
-   #       nfs:
-   #         server: 192.168.1.71
-   #         path: /mnt/tank/nfs
-   #         readOnly: false
-
+        claimName: minio-pvc
+          #volumes:
+          #- name: minio-data
+          #nfs:
+          #  server: 192.168.1.71
+          #  path: /mnt/tank/nfs
+          #  readOnly: false
+  
