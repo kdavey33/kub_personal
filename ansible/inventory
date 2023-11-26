@@ -1,7 +1,9 @@
 [backup]
 docker
 cf
-
+node1
+node2
+node3
 [update]
 docker
 node1
