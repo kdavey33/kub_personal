@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: my-csi-app-set
+  name: busybox
 spec:
   selector:
     matchLabels:
-      app: mypod
+      app: busybox
   serviceName: "my-frontend"
   replicas: 2
   template:
     metadata:
       labels:
-        app: mypod
+        app: busybox
     spec:
       containers:
       - name: my-frontend
@@ -21,17 +21,17 @@ spec:
         - infinity
         volumeMounts:
         - mountPath: "/data"
-          name: csi-pvc
+          name: busybox-pvc
   volumeClaimTemplates:
   - metadata:
-      name: csi-pvc
+      name: busybox-pvc
     spec:
       accessModes:
       - ReadWriteOnce
       resources:
         requests:
           storage: 5Gi
-      storageClassName: do-block-storage 
+      storageClassName: longhorn
  
  
  

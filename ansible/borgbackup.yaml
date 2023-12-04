@@ -2,10 +2,10 @@
 # This playbook will run a BORG CREATE archive against all nodes in the cluster.
 
 - hosts: backup
-  become: true
-  serial: 1  # Run tasks one node at a time
+  become: true  #Run the jobs as 'root'
+  serial: 1  # Run tasks one node at a time.  We need to do this because having two borg processes writting to the same repo is BAD!!!!
   vars:
-    borg_passphrase: "{{ borgrepopw }}"
+#    borg_passphrase: "{{ borgrepopw }}"  We have this commented at this time because the repo in use is not encrypted
     random_number: "{{ 1000 | random }}"
 
   tasks:
@@ -16,9 +16,11 @@
     - name:  Run the Borg Create Job
       ignore_errors: yes  # We do this due to how BORG reports skipped files
       ansible.builtin.shell: |
-        borgbackup create --show-rc  --stats --exclude /proc --exclude /run --exclude /sys borg@192.168.1.55:/mnt/borg::{{ ansible_hostname }}-{{ random_number }} /
+        borgbackup create --show-rc  --stats --exclude /proc --exclude /run --exclude /sys borg@192.168.1.55:/home/borg/repo::{{ ansible_hostname }}-{{ random_number }} /
       environment:
+
         BORG_PASSPHRASE: "{{ borg_passphrase }}"
+
       register: results1
 
     - debug:
@@ -27,9 +29,12 @@
     - name: prune old archives
       ignore_errors: yes
       ansible.builtin.shell:  |
-        borgbackup prune --keep-daily 7 --keep-weekly 4 --keep-monthly 3 -P {{ ansible_hostname }} borg@192.168.1.55:/mnt/borg
+        borgbackup prune --keep-daily 7 --keep-weekly 4 --keep-monthly 3 --stats --list -P {{ ansible_hostname }} borg@192.168.1.55:/home/borg/repo
       environment:
-        BORG_PASSPHRASE:  "{{ borg_passphrase }}"
+
+
+#        BORG_PASSPHRASE:  "{{ borg_passphrase }}"  Not needed as the current repo is unencrypted
+
       register: results2
 
     - debug:
