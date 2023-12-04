@@ -1,0 +1,15 @@
+host: phl-42
+datacenter:
+  location: Philidelphia
+  cab: "13"
+  cab_unit: '3'
+roles:
+  - webserver
+  - wp_database
+downtime_sch: |
+  2018-10-31 - kernel upgrade
+  2018-02-02 - security fix
+comments: >
+  Experiancing hih i/o 
+  as of 2018-10-01.
+  Curently Investigating

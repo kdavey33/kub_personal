@@ -18,7 +18,9 @@
       ansible.builtin.shell: |
         borgbackup create --show-rc  --stats --exclude /proc --exclude /run --exclude /sys borg@192.168.1.55:/home/borg/repo::{{ ansible_hostname }}-{{ random_number }} /
       environment:
-#        BORG_PASSPHRASE: "{{ borg_passphrase }}"  commented because we are presently using an unencrypted repo.
+
+        BORG_PASSPHRASE: "{{ borg_passphrase }}"
+
       register: results1
 
     - debug:
@@ -29,6 +31,8 @@
       ansible.builtin.shell:  |
         borgbackup prune --keep-daily 7 --keep-weekly 4 --keep-monthly 3 --stats --list -P {{ ansible_hostname }} borg@192.168.1.55:/home/borg/repo
       environment:
+
+
 #        BORG_PASSPHRASE:  "{{ borg_passphrase }}"  Not needed as the current repo is unencrypted
 
       register: results2
