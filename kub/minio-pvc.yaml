@@ -10,8 +10,4 @@ spec:
   resources:
     requests:
       storage: 10Gi
-<<<<<<< HEAD
-
-=======
     storageClassN:ame: longhorn
->>>>>>> refs/remotes/origin/main
