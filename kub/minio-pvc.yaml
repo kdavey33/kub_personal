@@ -6,12 +6,8 @@ metadata:
     app: minio
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 10Gi
-<<<<<<< HEAD
-
-=======
     storageClassN:ame: longhorn
->>>>>>> refs/remotes/origin/main
