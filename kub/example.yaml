@@ -13,7 +13,7 @@ spec:
   type: LoadBalancer
 status:
   loadBalancer: {}
- 
+
 ---
 apiVersion: apps/v1
 kind: Deployment
