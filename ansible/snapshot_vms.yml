@@ -1,0 +1,18 @@
+---
+- hosts: node1
+  gather_facts: yes
+  become: yes
+  become_method: sudo
+  become_user: root
+  become_flags: "-S"
+
+  tasks:
+
+    - name: Create new container snapshot
+      community.general.proxmox_snap:
+      api_user: root@pam
+      api_password: 1q2w3e
+      api_host: node1
+      vmid: 105
+      state: present
+      snapname: pre-updates
