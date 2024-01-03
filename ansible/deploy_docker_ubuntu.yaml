@@ -1,6 +1,6 @@
 ---
 
-- hosts: docker
+- hosts: docker2
   become: true
   tasks:
 

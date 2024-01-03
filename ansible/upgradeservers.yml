@@ -1,6 +1,6 @@
 ---
 # This is an Ubunutu/Debian specific upgrade playbook
-- hosts: update
+- hosts: docker2
   gather_facts: yes
   become: yes
   become_method: sudo
