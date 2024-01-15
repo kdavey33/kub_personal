@@ -1,6 +1,6 @@
 ---
 
-- hosts: docker2
+- hosts: node1
   become: true
   tasks:
 
@@ -29,7 +29,7 @@
       published_ports:
         - "9000:9000"
         - "8000:8000"
-        - "9446:9446"
+        - "9443:9443"
       name: Portainer
       volumes:
         -  "/var/run/docker.sock:/var/run/docker.sock"
