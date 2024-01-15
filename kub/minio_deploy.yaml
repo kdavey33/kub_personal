@@ -22,17 +22,17 @@ spec:
         - /data
         envFrom:
         - secretRef:
-            name: minio-secret
+          name: minio-secret
         ports:
         - containerPort: 9000
         - containerPort: 9001
         volumeMounts:
         - name: minio-data
           mountPath: /data
-  volumes:
-  - name: minio-data
-    nfs:
-      server: 192.168.1.111
-      path: /mnt/tank/nfs
-      readOnly: false
+      volumes:
+      - name: minio-data
+        nfs:
+          server: 192.168.1.111
+          path: /mnt/tank/nfs
+          readOnly: false
 
