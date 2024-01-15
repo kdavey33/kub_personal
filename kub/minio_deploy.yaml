@@ -15,28 +15,24 @@ spec:
         app: minio
     spec:
       containers:
-        - name: minio
-          image: minio/minio
-          args:
-            - server
-            - /data
-          envFrom:
-            - secretRef:
-                name: minio-secret
-          ports:
-            - containerPort: 9000
-            - containerPort: 9001  
-          volumeMounts:
-            - name: minio-data
-              mountPath: /data
-    volumes:
-      - name: minio-data
-        persistentVolumeClaim:
-        claimName: minio-pvc
-          #volumes:
-          #- name: minio-data
-          #nfs:
-          #  server: 192.168.1.71
-          #  path: /mnt/tank/nfs
-          #  readOnly: false
-  
+      - name: minio
+        image: minio/minio
+        args:
+        - server
+        - /data
+        envFrom:
+        - secretRef:
+            name: minio-secret
+        ports:
+        - containerPort: 9000
+        - containerPort: 9001
+        volumeMounts:
+        - name: minio-data
+          mountPath: /data
+  volumes:
+  - name: minio-data
+    nfs:
+      server: 192.168.1.111
+      path: /mnt/tank/nfs
+      readOnly: false
+
