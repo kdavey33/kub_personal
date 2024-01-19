@@ -17,13 +17,14 @@ spec:
       containers:
       - name: minio
         image: minio/minio
+        command:
+        - /bin/bash
+        - -c
         args:
-        - server
-        - /data
-        - '--console "*:9001"'
+        - minio server /data --console-address :9001
         envFrom:
         - secretRef:
-          name: minio-secret
+            name: minio-secret
         ports:
         - containerPort: 9000
         - containerPort: 9001
