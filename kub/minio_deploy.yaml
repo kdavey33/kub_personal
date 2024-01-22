@@ -15,20 +15,20 @@ spec:
         app: minio
     spec:
       containers:
-      - name: minio
-        image: minio/minio
-        args:
-        - server
-        - /data
-        envFrom:
-        - secretRef:
-          name: minio-secret
-        ports:
-        - containerPort: 9000
-        - containerPort: 9001
-        volumeMounts:
-        - name: minio-data
-          mountPath: /data
+        - name: minio
+          image: minio/minio
+          args:
+            - server
+            - /data
+          envFrom:
+          - secretRef:
+              name: minio-secret
+          ports:
+            - containerPort: 9000
+            - containerPort: 9001
+          volumeMounts:
+          - name: minio-data
+            mountPath: /data
       volumes:
       - name: minio-data
         nfs:
