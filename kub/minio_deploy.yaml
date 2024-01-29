@@ -1,3 +1,6 @@
+# Minio deployment for single node/single disk operation
+
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -5,7 +8,7 @@ metadata:
   labels:
     app: minio
 spec:
-  replicas: 1
+  replicas: 1  # This needs to remain 1 for single node operations
   selector:
     matchLabels:
       app: minio
@@ -42,8 +45,8 @@ spec:
         - secretRef:
             name: minio-secret
         ports:
-        - containerPort: 9000
-        - containerPort: 9001
+        - containerPort: 9000  # minio api port
+        - containerPort: 9001  # minio console port
         volumeMounts:
         - name: minio-data
           mountPath: /data
@@ -51,7 +54,7 @@ spec:
       volumes:
       - name: minio-data
         nfs:
-          server: 192.168.1.111
+          server: 192.168.1.111   # tn.lan  TrueNas Mount
           path: /mnt/tank/nfs
           readOnly: false
 
