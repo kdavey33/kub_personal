@@ -35,9 +35,9 @@
         -  "/var/run/docker.sock:/var/run/docker.sock"
         -  "Portainer_vol:/data"
 
-  - name: install the docker-compose
-    package:
-      name:
-        - docker-compose
-      state: latest
-      update_cache: yes
+          #  - name: install the docker-compose
+          # package:
+          # name:
+          # - docker-compose
+          # state: latest
+          # update_cache: yes
