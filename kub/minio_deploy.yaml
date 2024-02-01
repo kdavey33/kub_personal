@@ -8,7 +8,7 @@ metadata:
   labels:
     app: minio
 spec:
-  replicas: 2  # This needs to remain 1 for single node operations
+  replicas: 1  # This needs to remain 1 for single node operations
   selector:
     matchLabels:
       app: minio
