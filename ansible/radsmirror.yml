@@ -1,0 +1,48 @@
+
+- name: Azure blob mirror to local system
+  hosts: radsmediamirror
+
+  tasks:
+  - name: start mirror jobs
+    block:
+    - name: Run mirror job1
+      ansible.builtin.shell:
+        cmd: "/home/sysops/RADS_DATA_HQ_COPIES/azcopy sync 'https://radsmediafast.blob.core.windows.net/media/?sv=2022-11-02&ss=b&srt=co&sp=rl&se=2025-02-07T05:09:02Z&st=2024-02-06T21:09:02Z&spr=https&sig=BjIieSvZD7ffwx3f48jIqwzUVgLOvuqqtIOW%2B9UObs4%3D' /home/sysops/RADS_DATA_HQ_COPIES/radsmediafast/"
+      register: command1_results
+
+    - name: Run mirror job2
+      ansible.builtin.shell:
+        cmd: "/home/sysops/RADS_DATA_HQ_COPIES/azcopy sync 'https://radmediacdn.blob.core.windows.net/media/?sv=2022-11-02&ss=bf&srt=co&sp=rl&se=2025-02-07T04:34:18Z&st=2024-02-06T20:34:18Z&spr=https&sig=liwNmldrvb8LpVQDB582OJwe5TzLbR3pW5wDBARbxt8%3D' /home/sysops/RADS_DATA_HQ_COPIES/radsmediacdn/"
+      register: command2_results
+
+    - name: Run mirror job3
+      ansible.builtin.shell:
+        cmd: "/home/sysops/RADS_DATA_HQ_COPIES/azcopy sync 'https://radsmedia.blob.core.windows.net/media/?sv=2022-11-02&ss=bf&srt=co&sp=rl&se=2025-02-07T05:04:45Z&st=2024-02-06T21:04:45Z&spr=https&sig=83xw7FnNXSHCgL1XfIg3GN9P07gBGyM9OKN%2FFCugiJQ%3D' /home/sysops/RADS_DATA_HQ_COPIES/radsmedia/"
+      register: command3_results
+
+    - name: Send resultCode via email to team
+      #         Keith, you can probably get by without this list creation (I think)
+      #        - name:  Gather the Result Code
+      #          debug:
+      #            var: [ command1_results.rc, command2_results.rc, command3_results.rc ]
+
+
+      community.general.mail:
+        host: smtp.theabr.org
+        port: 25
+        to: "kdavey@theabr.org, snolan@theabr.org"
+        from: "devsecops@theabr.org"
+        subject: "Result code for daily radsmedia mirror job"
+        body: "Looks like all jobs competed without error. Result codes:...... ." # TODO complete body of email
+        #body: "Looks like all jobs competed without error. Result codes: {{ command3_results.rc }}."    # TODO complete body of email
+
+
+    rescue:
+    - name: Sending failure
+      community.general.mail:
+        host: smtp.theabr.org
+        port: 25
+        to: "kdavey@theabr.org, snolan@theabr.org"
+        from: "devsecops@theabr.org"
+        subject: "radmediamirror job failed."
+        #body: "Looks like one or more of the mirror jobs failed.  Result codes are {{ command1_results.rc }}, {{ command2_results.rc }} and {{ command3_results.rc }}"            body: "Looks like one or more of the mirror jobs failed.  Result codes are: ........ "    # TODO complete body of email
