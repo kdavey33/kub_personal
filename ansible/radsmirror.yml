@@ -30,7 +30,7 @@
       community.general.mail:
         host: smtp.theabr.org
         port: 25
-        to: "kdavey@theabr.org, snolan@theabr.org"
+        to: "kdavey@theabr.org"
         from: "devsecops@theabr.org"
         subject: "Result code for daily radsmedia mirror job"
         body: "Looks like all jobs competed without error. Result codes:...... ." # TODO complete body of email
@@ -42,7 +42,7 @@
       community.general.mail:
         host: smtp.theabr.org
         port: 25
-        to: "kdavey@theabr.org, snolan@theabr.org"
+        to: "kdavey@theabr.org"
         from: "devsecops@theabr.org"
         subject: "radmediamirror job failed."
         #body: "Looks like one or more of the mirror jobs failed.  Result codes are {{ command1_results.rc }}, {{ command2_results.rc }} and {{ command3_results.rc }}"            body: "Looks like one or more of the mirror jobs failed.  Result codes are: ........ "    # TODO complete body of email
