@@ -21,14 +21,14 @@ metadata:
     # namespace: minio-dev # Change this value to match the namespace metadata.name
 spec:
   containers:
-    - name: minio
-      image: quay.io/minio/minio:latest
+  - name: minio
+    image: quay.io/minio/minio:latest
       command:
-        - /bin/bash
-        - -c
-      args: 
+      - /bin/bash
+      - -c
+        args: 
         - minio server /data --console-address :9001
-      volumeMounts:
+        volumeMounts:
         - mountPath: /data
             name: localvolume # Corresponds to the `spec.volumes` Persistent Volume
 #  nodeSelector:
